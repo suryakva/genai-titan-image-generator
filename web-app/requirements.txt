@@ -1,0 +1,16 @@
+boto3==1.29.5
+botocore
+pillow==10.1.0
+streamlit
+requests
+jinja2==3.1.2
+matplotlib
+faiss-cpu
+transformers
+pypdf
+langchain
+urllib3==1.26.6
+python-resize-image
+opensearch-py
+pathlib
+sagemaker

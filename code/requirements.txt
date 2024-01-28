@@ -1,0 +1,14 @@
+aws-cdk-lib==2.72.0
+constructs>=10.0.0,<11.0.0
+requests
+jinja2
+matplotlib
+boto3==1.29.5
+botocore==1.32.5
+pillow==10.1.0
+faiss-cpu
+transformers
+pypdf
+langchain
+urllib3==1.26.6
+python-resize-image
