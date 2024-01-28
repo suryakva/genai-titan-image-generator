@@ -7,7 +7,7 @@ Generative AI is a type of AI that can create new content and ideas, including c
 
 The size and general-purpose nature of FMs make them different from traditional ML models, which typically perform specific tasks, like analyzing text for sentiment, classifying images, and forecasting trends.
 
-With tradition ML models, in order to achieve each specific task, you need to gather labeled data, train a model, and deploy that model. With foundation models, instead of gathering labeled data for each model and training multiple models, you can use the same pre-trained FM to adapt various tasks. You can also customize FMs to perform domain-specific functions that are differentiating to your businesses, using only a small fraction of the data and compute required to train a model from scratch. 
+With traditional ML models, in order to achieve each specific task, you need to gather labeled data, train a model, and deploy that model. With foundation models, instead of gathering labeled data for each model and training multiple models, you can use the same pre-trained FM to adapt various tasks. You can also customize FMs to perform domain-specific functions that are differentiating to your businesses, using only a small fraction of the data and compute required to train a model from scratch. 
 
 Generative AI has the potential to disrupt many industries by revolutionizing the way content is created and consumed. Original content production, code generation, customer service enhancement, and document summarization are typical use cases of generative AI.
 
@@ -17,13 +17,13 @@ Amazon Bedrock is a fully managed service that provides access to FMs from third
 In April 2023, AWS unveiled [Amazon Bedrock](https://aws.amazon.com/bedrock/), which provides a way to build generative AI-powered apps via pre-trained models from startups including [AI21 Labs](https://www.ai21.com/), [Anthropic](https://techcrunch.com/2023/02/27/anthropic-begins-supplying-its-text-generating-ai-models-to-startups/), and [Stability AI](https://techcrunch.com/2022/10/17/stability-ai-the-startup-behind-stable-diffusion-raises-101m/). Amazon Bedrock also offers access to Titan foundation models, a family of models trained in-house by AWS. With the serverless experience of Amazon Bedrock, you can easily find the right model for your needs, get started quickly, privately customize FMs with your own data, and easily integrate and deploy them into your applications using the AWS tools and capabilities you’re familiar with (including integrations with SageMaker ML features like [Amazon SageMaker Experiments](https://docs.aws.amazon.com/sagemaker/latest/dg/experiments.html) to test different models and [Amazon SageMaker Pipelines](https://aws.amazon.com/sagemaker/pipelines/) to manage your FMs at scale) without having to manage any infrastructure.
  
 
-In this post, we show how to invoke the amazon.titan-image-generator-v1 image generation model using using a Streamlit UI deployed using Serverless services with [AWS Cloud Development Kit](https://aws.amazon.com/cdk/) (AWS CDK). The AWS CDK is an open-source software development framework to define your cloud application resources using familiar programming languages like Python.
+In this post, we show how to invoke the "amazon.titan-image-generator-v1" image generation model using a Streamlit UI deployed using Serverless services like API Gateway, Lambda with [AWS Cloud Development Kit](https://aws.amazon.com/cdk/) (AWS CDK). The AWS CDK is an open-source software development framework to define your cloud application resources using familiar programming languages like Python.
 
 
 
 ## Solution overview
 
-The web application is built on [Streamlit](https://streamlit.io/), an open-source Python library that makes it easy to create and share beautiful, custom web apps for ML and data science. We host the web application using [Amazon Elastic Container Service](https://aws.amazon.com/ecs) (Amazon ECS) with [AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/userguide/what-is-fargate.html) and it is accessed via an Application Load Balancer. Fargate is a technology that you can use with Amazon ECS to run [containers](https://aws.amazon.com/what-are-containers) without having to manage servers or clusters or virtual machines. The Bedrock model endpoint is invoked from the [AWS Lambda](http://aws.amazon.com/lambda) function. The web application interacts with the models via [Amazon API Gateway](https://aws.amazon.com/api-gateway) and [AWS Lambda](http://aws.amazon.com/lambda) functions as shown in the following diagram.
+The web application is built on [Streamlit](https://streamlit.io/), an open-source Python library that makes it easy to create and share beautiful, custom web apps for ML and data science. We host the web application using [Amazon Elastic Container Service](https://aws.amazon.com/ecs) (Amazon ECS) with [AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/userguide/what-is-fargate.html) and it is accessed via an Application Load Balancer. Fargate is a technology that you can use with Amazon ECS to run [containers](https://aws.amazon.com/what-are-containers) without having to manage servers or clusters or virtual machines. The Bedrock model endpoint is invoked from an  [AWS Lambda](http://aws.amazon.com/lambda) function. The web application interacts with the models via [Amazon API Gateway](https://aws.amazon.com/api-gateway) and [AWS Lambda](http://aws.amazon.com/lambda) function as shown in the following diagram.
 
 ![architecture](./images/architecture.png)
 
@@ -96,7 +96,7 @@ cd genai-titan-image-generator
 ```
 
 
-The `stack` folder contains the code for each stack in the AWS CDK application. The `code` folder contains the code for the Amazon Lambda function. The repository also contains the web application located  under the folder `web-app`. 
+The `stack` folder contains the code for each stack in the AWS CDK application. The `code` folder contains the code for the AWS Lambda function. The repository also contains the web application located  under the folder `web-app`. 
 
 The `cdk.json` file tells the AWS CDK Toolkit how to run your application.
 
@@ -191,7 +191,7 @@ At this point, you can deploy the AWS CDK application. First you launch the VPC 
 cdk deploy VpcNetworkStack
 ```
 
-If you are prompted, enter `y` to proceed with the deployment. You should see a list of AWS resources that are being provisioned in the stack. This step takes around 3 minutes to complete.
+If you are prompted, enter `y` to proceed with the deployment. You should see a list of AWS resources that are being provisioned in the stack. 
 
 
 
@@ -201,7 +201,7 @@ Then you  launch the web application stack:
 cdk deploy ApplicationStack
 ```
 
-After analyzing the stack, the AWS CDK will display the resource list in the stack. Enter y to proceed with the deployment. This step takes around 5 minutes.
+After analyzing the stack, the AWS CDK will display the resource list in the stack. Enter y to proceed with the deployment.
 
 
 Note down the `WebApplicationServiceURL` from the output as you will use it later. You can also retrieve it later in the CloudFormation console, under the `ApplicationStack` stack outputs.
@@ -212,7 +212,7 @@ Note down the `WebApplicationServiceURL` from the output as you will use it late
 
 1. Access the web application using the `WebApplicationServiceURL` from the output of the `ApplicationStack` in your browser.
 
-2. Enter a prompt in the prompt text field Ex: "Waterfall on Mars" 
+2. Enter a prompt in the prompt text field. Ex: "Waterfall on Mars" 
 
 3. Click the **Generate** button.
 
@@ -224,13 +224,13 @@ The application will make a call to the Bedrock endpoint. It takes a few seconds
 
 ## Clean up
 
-To avoid unnecessary cost, clean up all the infrastructure created with the following command on your workstation:
+To avoid unnecessary costs, clean up all the infrastructure created with the following command on your workstation:
 
 ```
 cdk destroy --all
 ```
 
-Enter `y` at the prompt. This step takes around 10 minutes. Check if all resources are deleted on the console. Also delete the assets S3 buckets created by the AWS CDK on the Amazon S3 console as well as the assets repositories on Amazon ECR.
+Enter `y` at the prompt. Check if all resources are deleted on the console. Also delete the assets S3 buckets created by the AWS CDK on the Amazon S3 console as well as the assets repositories on Amazon ECR.
 
 
 
