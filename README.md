@@ -218,7 +218,7 @@ Note down the `WebApplicationServiceURL` from the output as you will use it late
 
 The application will make a call to the Bedrock endpoint. It takes a few seconds. An image with the details in your text prompt description will be displayed.
 
-![Generated_Image](./images/generated_image.jpeg)
+![Generated_Image](./images/gen_image.jpeg)
 
 
 
