@@ -17,20 +17,20 @@ Amazon Bedrock is a fully managed service that provides access to FMs from third
 In April 2023, AWS unveiled [Amazon Bedrock](https://aws.amazon.com/bedrock/), which provides a way to build generative AI-powered apps via pre-trained models from startups including [AI21 Labs](https://www.ai21.com/), [Anthropic](https://techcrunch.com/2023/02/27/anthropic-begins-supplying-its-text-generating-ai-models-to-startups/), and [Stability AI](https://techcrunch.com/2022/10/17/stability-ai-the-startup-behind-stable-diffusion-raises-101m/). Amazon Bedrock also offers access to Titan foundation models, a family of models trained in-house by AWS. With the serverless experience of Amazon Bedrock, you can easily find the right model for your needs, get started quickly, privately customize FMs with your own data, and easily integrate and deploy them into your applications using the AWS tools and capabilities you’re familiar with (including integrations with SageMaker ML features like [Amazon SageMaker Experiments](https://docs.aws.amazon.com/sagemaker/latest/dg/experiments.html) to test different models and [Amazon SageMaker Pipelines](https://aws.amazon.com/sagemaker/pipelines/) to manage your FMs at scale) without having to manage any infrastructure.
  
 
-In this post, we show how to invoke the "amazon.titan-image-generator-v1" image generation model using a Streamlit UI deployed using Serverless services like API Gateway, Lambda with [AWS Cloud Development Kit](https://aws.amazon.com/cdk/) (AWS CDK). The AWS CDK is an open-source software development framework to define your cloud application resources using familiar programming languages like Python.
+In this post, I will show how to invoke the "amazon.titan-image-generator-v1" image generation model using a Streamlit UI deployed using Serverless services like API Gateway, Lambda with [AWS Cloud Development Kit](https://aws.amazon.com/cdk/) (AWS CDK). The AWS CDK is an open-source software development framework to define your cloud application resources using familiar programming languages like Python.
 
 
 
 ## Solution overview
 
-The web application is built on [Streamlit](https://streamlit.io/), an open-source Python library that makes it easy to create and share beautiful, custom web apps for ML and data science. We host the web application using [Amazon Elastic Container Service](https://aws.amazon.com/ecs) (Amazon ECS) with [AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/userguide/what-is-fargate.html) and it is accessed via an Application Load Balancer. Fargate is a technology that you can use with Amazon ECS to run [containers](https://aws.amazon.com/what-are-containers) without having to manage servers or clusters or virtual machines. The Bedrock model endpoint is invoked from an  [AWS Lambda](http://aws.amazon.com/lambda) function. The web application interacts with the models via [Amazon API Gateway](https://aws.amazon.com/api-gateway) and [AWS Lambda](http://aws.amazon.com/lambda) function as shown in the following diagram.
+The web application is built on [Streamlit](https://streamlit.io/), an open-source Python library that makes it easy to create and share beautiful, custom web apps for ML and data science. I host the web application using [Amazon Elastic Container Service](https://aws.amazon.com/ecs) (Amazon ECS) with [AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/userguide/what-is-fargate.html) and it is accessed via an Application Load Balancer. Fargate is a technology that you can use with Amazon ECS to run [containers](https://aws.amazon.com/what-are-containers) without having to manage servers or clusters or virtual machines. The Bedrock model endpoint is invoked from an  [AWS Lambda](http://aws.amazon.com/lambda) function. The web application interacts with the models via [Amazon API Gateway](https://aws.amazon.com/api-gateway) and [AWS Lambda](http://aws.amazon.com/lambda) function as shown in the following diagram.
 
 ![architecture](./images/architecture.png)
 
 API Gateway provides the web application and other clients a standard RESTful interface, while shielding the Lambda function that interfaces with the model. This simplifies the client application code that consumes the models. The API Gateway endpoints are publicly accessible in this example, allowing for the possibility to extend this architecture to implement different [API access controls](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-to-api.html) and integrate with other applications.
 
  
-In this post, we walk you through the following steps:
+In this post, I will walk you through the following steps:
 
 1. Install the [AWS Command Line Interface](http://aws.amazon.com/cli) (AWS CLI) and [AWS CDK v2](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) on your local machine.
 2. Clone and set up the AWS CDK application.
@@ -236,7 +236,7 @@ Enter `y` at the prompt. Check if all resources are deleted on the console. Also
 
 ## Conclusion
 
-As demonstrated in this post, you can use the AWS CDK to deploy Serverless architectures to invoke Bedrock models. We showed an image generation example using a user interface powered by Streamlit, Lambda, and API Gateway.
+As demonstrated in this post, you can use the AWS CDK to deploy Serverless architectures to invoke Bedrock models. I showed an image generation example using a user interface powered by Streamlit, Lambda, and API Gateway.
 
 
 
